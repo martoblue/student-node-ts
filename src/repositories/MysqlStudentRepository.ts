@@ -21,6 +21,7 @@ export class MysqlStudentRepository implements IStudentRepository {
       connection.release();
     }
   }
+
   findById(id: number): Promise<IStudent | null> {
     throw new Error('Method not implemented.');
   }
