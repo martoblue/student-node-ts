@@ -1,6 +1,7 @@
-import { GET, POST, route } from 'awilix-express';
+import { DELETE, GET, POST, PUT, route, updateConfig } from 'awilix-express';
 import { Request, Response, Router } from 'express';
 import { IStudentService } from '../interfaces/IStudentService';
+import { request } from 'http';
 
 @route('/students')
 export class StudentController {
@@ -11,6 +12,8 @@ export class StudentController {
     this.router.get('/', this.all.bind(this));
     this.router.get('/:id', this.getById.bind(this));
     this.router.post('/', this.create.bind(this));
+    this.router.put('/:id', this.updateConfig.bind(this));
+    this.router.delete('/:id', this.delete.bind(this));
   }
 
   @GET()
@@ -38,5 +41,19 @@ export class StudentController {
   public async create(req: Request, res: Response) {
     const newStudent = await this.studentService.createStudent(req.body);
     res.json(newStudent);
+  }
+
+  @route('/:id')
+  @PUT()
+  public async updateConfig(req: Request, res: Response) {
+    await this.studentService.updateStudent(Number(req.params.id), req.body);
+    res.status(200).send('Student updaed succesfully');
+  }
+
+  @route('/:id')
+  @DELETE()
+  public async delete(req: Request, res: Response) {
+    await this.studentService.deleteStudent(+req.params.id);
+    res.status(200).send('Student delete successfully');
   }
 }
