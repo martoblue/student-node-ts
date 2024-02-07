@@ -1,13 +1,19 @@
 # Arrancar docker en WSL o Virtual Machine
 
+## Instalación requerida
+
+```sh
+npm i docker-compose
+```
+
 ## Se ejecuta una vez
 
 ```sh
-docker compose up -d
+docker-compose up -d
 ```
 
-## Para observar si se creo
+## Para observar si se creó
 
 ```sh
-docker compose -a
+docker ps -a
 ```
